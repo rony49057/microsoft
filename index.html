@@ -1,288 +1,362 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Microsoft by Jony — Team</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microsoft by Jony</title>
+
   <style>
     :root {
-      --bg: #0f1724;
-      --card: #0b1220;
+      --bg-dark: #050a18;
+      --bg-light: #f4f8ff;
+      --text-dark: #e2e8f0;
+      --text-light: #0f172a;
       --accent: #2563eb;
-      --muted: #94a3b8;
-      --text: #e6eef8;
-      --radius: 14px;
-    }
-    body.light {
-      --bg: #f2f6ff;
-      --card: #ffffff;
-      --text: #0f1724;
-      --muted: #64748b;
-      --accent: #2563eb;
+      --card-dark: rgba(15, 23, 42, 0.75);
+      --card-light: rgba(255, 255, 255, 0.75);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      transition: background 0.4s, color 0.4s;
-    }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Inter", system-ui, sans-serif;
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      transition: 0.6s ease;
       overflow-x: hidden;
-      min-height: 100vh;
-      position: relative;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
     }
 
     header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 20px 36px;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(8px);
+      justify-content: space-between;
+      padding: 18px 50px;
       position: sticky;
       top: 0;
-      z-index: 10;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      z-index: 100;
     }
-    .brand {
+
+    .logo-title {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .brand img {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-      object-fit: contain;
-    }
 
-    /* ✨ Glowing Title Animation */
-    .brand h1 {
-      font-size: 22px;
-      background: linear-gradient(90deg, #60a5fa, #93c5fd, #2563eb, #60a5fa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-size: 200% auto;
-      animation: glowMove 4s linear infinite, softGlow 2.5s ease-in-out infinite;
-    }
-    @keyframes glowMove {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
-    }
-    @keyframes softGlow {
-      0%, 100% { text-shadow: 0 0 6px rgba(37,99,235,0.5), 0 0 12px rgba(37,99,235,0.4); }
-      50% { text-shadow: 0 0 18px rgba(37,99,235,0.8), 0 0 30px rgba(37,99,235,0.6); }
-    }
-
-    .brand p {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    /* Toggle button */
-    .toggle {
-      width: 45px;
-      height: 45px;
+    .logo {
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      cursor: pointer;
+      background: radial-gradient(circle, #2563eb 0%, transparent 70%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      transition: transform 0.3s, background 0.3s;
+      animation: spin 8s linear infinite;
     }
-    .toggle:hover {
-      transform: rotate(20deg) scale(1.1);
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .glow-title {
+      font-size: 26px;
+      background: linear-gradient(90deg, #60a5fa, #2563eb, #60a5fa);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 4s linear infinite, shine 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes shine {
+      0%,100% { text-shadow: 0 0 10px rgba(37,99,235,0.8); }
+      50% { text-shadow: 0 0 25px rgba(37,99,235,1); }
+    }
+
+    .toggle-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 22px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .toggle-btn:hover {
+      transform: scale(1.1) rotate(10deg);
     }
 
     .hero {
       text-align: center;
-      padding: 40px 20px;
-    }
-    .hero h2 {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-    .hero p {
-      font-size: 15px;
-      color: var(--muted);
+      padding: 50px 20px;
+      animation: fadeIn 1s ease;
     }
 
-    .section {
-      padding: 40px 20px;
-      text-align: center;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .grid {
+
+    .team-section {
+      padding: 50px;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+    }
+
+    .team-row {
+      display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 30px;
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      overflow: hidden;
+      background: var(--card-dark);
+      border-radius: 18px;
       width: 240px;
-      transform: translateY(20px);
-      opacity: 0;
-      animation: fadeInUp 0.8s forwards;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(37,99,235,0.2);
+      overflow: hidden;
+      transition: all 0.5s ease;
+      cursor: pointer;
+      position: relative;
+      backdrop-filter: blur(8px);
     }
-    @keyframes fadeInUp {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+
+    body.light .card {
+      background: var(--card-light);
     }
+
     .card:hover {
       transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 0 25px rgba(37, 99, 235, 0.4);
+      box-shadow: 0 0 40px rgba(37,99,235,0.4);
     }
-    .avatar {
+
+    .card img {
       width: 100%;
-      height: 200px;
-      overflow: hidden;
-    }
-    .avatar img {
-      width: 100%;
-      height: 100%;
+      height: 220px;
       object-fit: cover;
-      transition: transform 0.8s;
+      border-bottom: 3px solid var(--accent);
+      transition: 0.6s;
     }
+
     .card:hover img {
       transform: scale(1.1);
     }
-    .meta {
-      padding: 14px;
-      text-align: center;
+
+    .card h3 {
+      margin: 12px 0 6px;
+      font-size: 20px;
     }
-    .meta h3 {
-      font-size: 17px;
-    }
-    .meta small {
-      font-size: 13px;
-      color: var(--muted);
+
+    .card p {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 16px;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      color: var(--muted);
+      padding: 30px;
       font-size: 13px;
-      margin-top: 40px;
+      opacity: 0.8;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.2;
-      animation: float 30s infinite ease-in-out;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-    body.light .orb {
+    /* Modal styles */
+    .modal {
       display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0) translateX(0);
-      }
-      50% {
-        transform: translateY(-60px) translateX(40px);
-      }
+    .modal.active {
+      display: flex;
+      animation: fadeIn 0.5s;
     }
 
-    @media (max-width: 600px) {
-      .card {
-        width: 90%;
-      }
+    .modal-content {
+      background: var(--card-dark);
+      border-radius: 16px;
+      padding: 25px;
+      width: 320px;
+      text-align: center;
+      color: white;
+      position: relative;
+      box-shadow: 0 0 30px rgba(37,99,235,0.5);
+      animation: pop 0.6s ease;
     }
+
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 8px; right: 12px;
+      font-size: 22px;
+      color: #ccc;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-btn:hover {
+      color: white;
+    }
+
+    .social-links a {
+      color: #60a5fa;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .social-links a:hover {
+      text-decoration: underline;
+    }
+
   </style>
 </head>
-<body>
-  <div class="orb" style="width:220px;height:220px;top:10%;left:12%;background:#2563eb;"></div>
-  <div class="orb" style="width:280px;height:280px;bottom:15%;right:15%;background:#4f46e5;"></div>
 
+<body>
   <header>
-    <div class="brand">
-      <img src="Logo.png" alt="Company Logo">
-      <div>
-        <h1>Microsoft by Jony</h1>
-        <p>Professional · Tech · Team</p>
-      </div>
+    <div class="logo-title">
+      <div class="logo"><img src="Logo.png" alt="Logo"></div>
+      <h1 class="glow-title">Microsoft by Jony</h1>
     </div>
-    <button class="toggle" id="themeToggle">🌙</button>
+    <button class="toggle-btn" id="themeToggle">🌙</button>
   </header>
 
   <section class="hero">
-    <h2>Our Leadership & Team</h2>
-    <p>Meet the organized leadership and talented members of Microsoft by Jony.</p>
+    <h2>Meet the Team</h2>
+    <p>From leadership to the amazing workforce — united for innovation 🚀</p>
   </section>
 
-  <section class="section">
-    <h3>Leadership</h3>
-    <div class="grid" id="leaders-grid"></div>
+  <section class="team-section">
+    <h2>Leadership</h2>
+    <div class="team-row">
+      <div class="card" data-name="Noman" data-role="Vice President" data-file="VP.jpg" data-email="noman@aiub.edu" data-fb="https://facebook.com/noman">
+        <img src="VP.jpg" alt="VP">
+        <h3>VP (Boss)</h3>
+        <p><b>Noman</b> — Vice President</p>
+      </div>
+      <div class="card" data-name="Rony" data-role="Chief Executive Officer" data-file="GS.jpg" data-email="rony@aiub.edu" data-fb="https://facebook.com/rony">
+        <img src="GS.jpg" alt="CEO">
+        <h3>GS (CEO)</h3>
+        <p><b>Rony</b> — Chief Executive Officer</p>
+      </div>
+    </div>
+
+    <h2>Team Members</h2>
+    <div class="team-row">
+      <div class="card" data-name="Ashik" data-role="Assistant Engineer" data-file="AGS.jpg" data-email="ashik@aiub.edu" data-fb="https://facebook.com/ashik">
+        <img src="AGS.jpg" alt="AGS">
+        <h3>AGS</h3>
+        <p><b>Ashik</b> — Assistant Engineer</p>
+      </div>
+      <div class="card" data-name="Hazary" data-role="Expert Consultant" data-file="FemaleExpert.jpg" data-email="hazary@aiub.edu" data-fb="https://facebook.com/hazary">
+        <img src="FemaleExpert.jpg" alt="FemaleExpert">
+        <h3>Female Expert</h3>
+        <p><b>Hazary</b> — Expert Consultant</p>
+      </div>
+      <div class="card" data-name="Akash" data-role="Support Engineer" data-file="LazyEmp.jpg" data-email="akash@aiub.edu" data-fb="https://facebook.com/akash">
+        <img src="LazyEmp.jpg" alt="LazyEmp">
+        <h3>Lazy Emp</h3>
+        <p><b>Akash</b> — Support Engineer</p>
+      </div>
+      <div class="card" data-name="Sourov" data-role="Female Engineer" data-file="HornyBoy.jpg" data-email="sourov@aiub.edu" data-fb="https://facebook.com/sourov">
+        <img src="HornyBoy.jpg" alt="HornyBoy">
+        <h3>Horny Boy</h3>
+        <p><b>Sourov</b> — Female Engineer</p>
+      </div>
+    </div>
   </section>
 
-  <section class="section">
-    <h3>Team Members</h3>
-    <div class="grid" id="team-grid"></div>
-  </section>
+  <footer>
+    © 2025 Microsoft by Jony — All rights reserved.
+  </footer>
 
-  <footer>© <span id="year"></span> Microsoft by Jony · Organized by Rank</footer>
+  <!-- Modal -->
+  <div class="modal" id="profileModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <img id="modalImg" src="" alt="Profile">
+      <h2 id="modalName"></h2>
+      <p><b>American International University – Bangladesh</b></p>
+      <p>B.Sc. in Computer Science & Engineering</p>
+      <p id="modalRole"></p>
+      <p id="modalEmail"></p>
+      <div class="social-links">
+        <a href="#" id="modalFb" target="_blank">Facebook Profile</a>
+      </div>
+    </div>
+  </div>
 
   <script>
-    const employees = [
-      {title: 'VP (Boss)', name: 'Noman', file: 'VP.jpg', rank: 1, role: 'Vice President & Boss'},
-      {title: 'GS (CEO)', name: 'Rony', file: 'GS.jpg', rank: 2, role: 'Chief Executive Officer'},
-      {title: 'AGS ', name: 'Ashik', file: 'AGS.jpg', rank: 3, role: 'Assistant Engineer'},
-      {title: 'FemaleExpert', name: 'Hazary', file: 'FemaleExpert.jpg', rank: 4, role: 'Expert Consultant'},
-      {title: 'LazyEmp', name: 'Akash', file: 'LazyEmp.jpg', rank: 5, role: 'Support Engineer'},
-      {title: 'HornyBoy', name: 'Sourov', file: 'HornyBoy.jpg', rank: 6, role: 'Female client manager'}
-    ];
-
-    const leadersGrid = document.getElementById('leaders-grid');
-    const teamGrid = document.getElementById('team-grid');
-
-    function createCard(e, delay = 0) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.style.animationDelay = `${delay}s`;
-      card.innerHTML = `
-        <div class='avatar'><img src='${e.file}' alt='${e.name}'></div>
-        <div class='meta'><h3>${e.title}</h3><small>${e.name} — ${e.role}</small></div>
-      `;
-      return card;
-    }
-
-    employees.forEach((e, i) => {
-      if (e.rank <= 2) {
-        leadersGrid.appendChild(createCard(e, i * 0.1));
-      } else {
-        teamGrid.appendChild(createCard(e, i * 0.1));
-      }
+    const toggle = document.getElementById("themeToggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      toggle.textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
     });
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Modal functionality
+    const modal = document.getElementById("profileModal");
+    const closeModal = document.getElementById("closeModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalName = document.getElementById("modalName");
+    const modalRole = document.getElementById("modalRole");
+    const modalEmail = document.getElementById("modalEmail");
+    const modalFb = document.getElementById("modalFb");
 
-    const toggleBtn = document.getElementById('themeToggle');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      const isLight = document.body.classList.contains('light');
-      toggleBtn.textContent = isLight ? '☀️' : '🌙';
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => {
+        modal.classList.add("active");
+        modalImg.src = card.dataset.file;
+        modalName.textContent = card.dataset.name;
+        modalRole.textContent = card.dataset.role;
+        modalEmail.textContent = "📧 " + card.dataset.email;
+        modalFb.href = card.dataset.fb;
+      });
     });
+
+    closeModal.addEventListener("click", () => modal.classList.remove("active"));
+    modal.addEventListener("click", e => { if (e.target === modal) modal.classList.remove("active"); });
   </script>
 </body>
 </html>
-
