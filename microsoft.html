@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Microsoft by Jony — Team</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#2563eb;
+      --muted:#94a3b8;
+      --glass:rgba(255,255,255,0.05);
+      --radius:14px;
+      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background: radial-gradient(circle at top left, #111b30, var(--bg) 70%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:20px 36px;
+      background:rgba(15,23,36,0.7);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+    .brand{display:flex;gap:14px;align-items:center;animation:slideIn 1s ease forwards}
+    .brand img{width:56px;height:56px;border-radius:10px;object-fit:contain;box-shadow:0 6px 22px rgba(37,99,235,0.25)}
+    .brand h1{font-size:18px;margin:0}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+
+    @keyframes slideIn {
+      from {transform:translateX(-40px); opacity:0;}
+      to {transform:translateX(0); opacity:1;}
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:28px;
+      padding:60px 36px 20px;
+    }
+    .intro{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:18px;
+      padding:28px;
+      animation:fadeIn 1.5s ease;
+    }
+    .intro h2{margin:0 0 8px;font-size:32px;}
+    .intro p{color:var(--muted);margin:0;font-size:15px;line-height:1.6;}
+
+    @keyframes fadeIn {
+      from {opacity:0; transform:translateY(20px);}
+      to {opacity:1; transform:translateY(0);}
+    }
+
+    .team-wrap{padding:28px;}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+      gap:24px;
+    }
+
+    .card{
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:16px;
+      overflow:hidden;
+      position:relative;
+      transform:translateY(30px);
+      opacity:0;
+      animation:cardAppear 0.8s forwards;
+    }
+    @keyframes cardAppear {
+      to {transform:translateY(0); opacity:1;}
+    }
+    .card:hover{
+      transform:translateY(-8px) scale(1.03);
+      box-shadow:0 20px 50px rgba(37,99,235,0.25);
+      transition:all .3s ease;
+    }
+
+    .avatar{
+      width:100%;
+      height:220px;
+      overflow:hidden;
+      position:relative;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center top; /* crop to face */
+      transition:transform .6s ease;
+    }
+    .card:hover .avatar img{transform:scale(1.1);}
+
+    .meta{
+      padding:14px;
+      text-align:center;
+    }
+    .meta h3{
+      margin:8px 0 4px;
+      font-size:18px;
+    }
+    .meta small{
+      display:block;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .role-badge{
+      position:absolute;
+      top:14px;
+      left:14px;
+      background:linear-gradient(90deg,var(--accent),#4f46e5);
+      color:white;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:600;
+      letter-spacing:0.3px;
+      box-shadow:0 4px 10px rgba(37,99,235,0.3);
+      animation:floatBadge 3s ease-in-out infinite alternate;
+    }
+    @keyframes floatBadge {
+      from {transform:translateY(0);}
+      to {transform:translateY(-4px);}
+    }
+
+    footer{
+      padding:18px 36px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.05);
+    }
+
+    @media (max-width:940px){.hero{grid-template-columns:1fr}}
+    @media (max-width:520px){header{padding:12px} .hero{padding:16px} .intro h2{font-size:22px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="Logo.png" alt="Company Logo">
+      <div>
+        <h1>Microsoft by Jony</h1>
+        <p>Professional · Tech · Team</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="intro">
+        <h2>Our Leadership & Team</h2>
+        <p>Meet the incredible team behind <strong>Microsoft by Jony</strong> — driven innovators, thinkers, and engineers working together to shape the future of technology.</p>
+      </div>
+    </section>
+
+    <section class="team-wrap">
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Microsoft by Jony · Organized by Rank
+  </footer>
+
+  <script>
+    const employees = [
+      {title: 'VP (Boss)', name: 'Noman', file: 'VP.jpg', rank: 1, role: 'Vice President & Boss'},
+      {title: 'GS (CEO)', name: 'Rony', file: 'GS.jpg', rank: 2, role: 'Chief Executive Officer'},
+      {title: 'AGS (Employee)', name: 'Ashik', file: 'AGS.jpg', rank: 3, role: 'Senior Developer'},
+      {title: 'FemaleExpert', name: 'Hazary', file: 'FemaleExpert.jpg', rank: 4, role: 'Expert Consultant'},
+      {title: 'LazyEmp', name: 'Akash', file: 'LazyEmp.jpg', rank: 5, role: 'Support Engineer'},
+      {title: 'HornyBoy', name: 'Sourov', file: 'HornyBoy.jpg', rank: 6, role: 'Frontend Engineer'}
+    ];
+
+    const grid = document.getElementById('grid');
+    employees.sort((a,b)=>a.rank-b.rank);
+
+    employees.forEach((e,i) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.animationDelay = `${i * 0.15}s`;
+      card.innerHTML = `
+        <div class="role-badge">${e.role}</div>
+        <div class='avatar'><img src='${e.file}' alt='${e.name}'></div>
+        <div class='meta'>
+          <h3>${e.title}</h3>
+          <small>${e.name}</small>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
